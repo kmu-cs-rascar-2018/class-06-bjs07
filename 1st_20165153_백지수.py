@@ -58,23 +58,23 @@ class Car(object):
     def assignment_main(self):
         # Implement the assignment code here
       accelerator=rear_wheels.Rear_Wheels(db='config')
-      distance=self.distance_detector.get_distance()
       accelerator.ready()
       aim=15
       speed=30
-      for i in range(3):
+      for i in range(10,40,10):
          accelerator.go_forward(speed)
-         time.sleep(1)
-         if(distance<=aim):
-           time.sleep(1)
-           accelerator.stop()
-         for i in range(4):
-           accelerator.go_backward(speed)
-           time.sleep(1)
-           accelerator.stop()
+         while True:
+           distance=self.distance_detector.get_distance()
+           print(distance)
+           time.sleep(0.1)
+           if(distance<=aim):
+              accelerator.stop()
+              break;
+         accelerator.go_backward(speed)
+         time.sleep(4)
+         accelerator.stop()
          aim+=5
          speed+=20
-      accelerator.stop()
       accelerator.power_down()
 
     def moduleInitialize(self):
