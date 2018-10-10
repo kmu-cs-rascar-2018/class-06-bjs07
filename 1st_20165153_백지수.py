@@ -65,7 +65,6 @@ class Car(object):
          accelerator.go_forward(speed)
          while True:
            distance=self.distance_detector.get_distance()
-           print(distance)
            time.sleep(0.1)
            if(distance<=aim):
               accelerator.stop()
