@@ -61,7 +61,7 @@ class Car(object):
       accelerator.ready()
       aim=15
       speed=30
-      for i in range(10,40,10):
+      for i in range(4):
          accelerator.go_forward(speed)
          while True:
            distance=self.distance_detector.get_distance()
