@@ -1,7 +1,7 @@
 
 #########################################################################
 # Date: 2018/10/02
-# file name: 3nd_assignment_main.py
+# file name: 2nd_assignment_main.py
 # Purpose: this code has been generated for the 4 wheel drive body
 # moving object to perform the project with line detector
 # this code is used for the student only
@@ -74,75 +74,98 @@ class myCar(object):
         #start_time=time.time()
         cnt=0
 
-        while(True):
+        while(cnt != 2):
             #for turn in range(2):
+            print(cnt)
 
-                l=self.car.line_detector.read_digital()
-                distance=self.car.distance_detector.get_distance()
-                time.sleep(0.01)
-                #print(l)
-                print(self.car.distance_detector.get_distance())
-                self.car.accelerator.go_forward(20)
 
+            self.l=self.car.line_detector.read_digital()
+            distance=self.car.distance_detector.get_distance()
+            time.sleep(0.01)
+            self.car.accelerator.go_forward(30)
+            if self.l != [0, 0, 0, 0, 0]:
+                l = self.l
                 self.car.steering.turn(90 - 30 * l[0] - 10 * l[1] + 10 * l[3] + 30 * l[4])
-                time.sleep(0.01)
-                if l==[0,0,0,0,0]:
-                    #self.car.steering.turn(90+ 30 * l[0] -+ 10 * l[1] - 10 * l[3] - 30 * l[4])
-                    self.car.steering.center_alignment()
-                    self.car.accelerator.go_backward(20)
-                    time.sleep(0.1)
-                if l==[1,1,1,1,1] and cnt ==1:
-                    self.car.drive_parking()
-                if l==[1,1,1,1,1] and cnt==0:
-                    print("cnt plus")
-                    cnt+=1
-                if distance< 25 and distance!= -1:
+            else:
+                self.car.accelerator.go_backward(30)
+                self.car.steering.turn(90 + 30 * l[0] + 10 * l[1] - 10 * l[3] - 30 * l[4])
 
-                    while(True):
-                        l = self.car.line_detector.read_digital()
-                        print(distance)
-                        print("in")
-                        #if l[4] ==0:
-                        self.car.steering.turn_left(40)
+            if l == [1, 1, 1, 1, 1]:
+                while(True):
+                    l = self.car.line_detector.read_digital()
+                    self.car.steering.turn(90 - 30 * l[0] - 10 * l[1] + 10 * l[3] + 30 * l[4])
+                    if l != [1, 1, 1, 1, 1]:
+                        cnt+=1
+                        break
 
+            if distance < 25 and distance != -1:
 
-                        if l[0] ==1 and l[1]==1:
-                            print(l)
-                            print("out1")
-                            break
+                while (True):
+                    l = self.car.line_detector.read_digital()
+                    #print(distance)
+                    # print("in")
+                    # if l[4] ==0:
+                    self.car.steering.turn_left(40)
 
-                    while(True):
-                        l = self.car.line_detector.read_digital()
-                        time.sleep(0.01)
-
-                        #if l[0] ==1 or l[1]==1 :
-
-                            #self.car.steering.center_alignment()
-                            #self.car.accelerator.go_forward(30)
-                            #직선주행
-                        self.car.steering.turn_right(90 + 80)
-                        print("go")
-
-                        self.car.accelerator.go_forward(20)
-                        if l==[0,0,0,0,0]:
-                            print("out2")
-                            break
-
-
-                    while(True):
-                        l = self.car.line_detector.read_digital()
-                        time.sleep(0.01)
-                        print("go3")
-                        #if l[2]==0 or l[1]==0 or l[0] ==0:
+                    if l[0] == 1 and l[1] == 1:
                         print(l)
-                        self.car.steering.turn_right(90+20)
-                        if l[3] ==1 or l[4]==1:
-                            print("out3")
+                        # print("out1")
+                        break
 
-                            break
+                while (True):
+                    l = self.car.line_detector.read_digital()
+                    time.sleep(0.001)
+
+                    # if l[0] ==1 or l[1]==1 :
+
+                    # self.car.steering.center_alignment()
+                    # self.car.accelerator.go_forward(30)
+                    # 직선주행
+                    self.car.steering.turn_right(90 + 80)
+                    # print("go")
+
+                    self.car.accelerator.go_forward(30)
+                    if l == [0, 0, 0, 0, 0]:
+                        # print("out2")
+                        break
+
+                while (True):
+                    l = self.car.line_detector.read_digital()
+                    time.sleep(0.001)
+                    # print("go3")
+                    # if l[2]==0 or l[1]==0 or l[0] ==0:
+                    # print(l)
+                    self.car.steering.turn_right(90 + 20)
+                    if l[3] == 1 or l[4] == 1:
+                        print("out3")
+
+                        break
+        self.car.drive_parking()
 
 
+#                time.sleep(0.001)
 
+''' if dist < 25
+break
+
+while find line
+
+steering x and find line
+
+go forward(linefollow)
+
+steering -x and find line
+
+while find 11111
+ride
+
+
+'''
+'''if l==[0,0,0,0,0]:
+#self.car.steering.turn(90+ 30 * l[0] + 10 * l[1] - 10 * l[3] - 30 * l[4])
+self.car.steering.center_alignment()
+self.car.accelerator.go_backward(25)
+time.sleep(0.01)'''
                         #if 0 in l
                         #self.car.steering.turn_right(90+30)
                         #time.sleep(1.4)
